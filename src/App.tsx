@@ -21,7 +21,7 @@ function App() {
 
   // State machine handlers
   const handleHoldStart = useCallback(() => {
-    if (timerState === 'idle') {
+    if (timerState === 'idle' || timerState === 'stopped') {
       setTimerState('holding')
     }
   }, [timerState])

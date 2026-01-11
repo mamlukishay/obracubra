@@ -38,7 +38,7 @@ export function useKeyboardControls({
     if (isHoldingRef.current) return
     isHoldingRef.current = true
 
-    if (timerState === 'idle') {
+    if (timerState === 'idle' || timerState === 'stopped') {
       onHoldStart()
       // Set timeout for ready state
       holdTimeoutRef.current = window.setTimeout(() => {
@@ -46,8 +46,6 @@ export function useKeyboardControls({
       }, HOLD_THRESHOLD_MS)
     } else if (timerState === 'running') {
       onStop()
-    } else if (timerState === 'stopped') {
-      // Will transition to idle on release
     }
   }, [timerState, onHoldStart, onReady, onStop])
 
