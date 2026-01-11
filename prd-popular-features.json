@@ -1,0 +1,649 @@
+{
+  "project": "Cubic Timer - Popular Features",
+  "branchName": "claude/popular-features",
+  "description": "Implementation of popular features from existing speedcubing timer applications including social features, cloud sync, advanced statistics, smart cube integration, and competition mode.",
+  "userStories": [
+    {
+      "id": "PF-001",
+      "title": "User Registration & Authentication System",
+      "description": "As a speedcuber, I want to create an account so that I can access cloud features and social functionality.",
+      "acceptanceCriteria": [
+        "User registration with email/password",
+        "OAuth integration (Google, GitHub)",
+        "JWT-based authentication",
+        "Password reset functionality",
+        "Email verification",
+        "Secure password storage (bcrypt)",
+        "Login/logout functionality works correctly"
+      ],
+      "priority": 1,
+      "passes": false
+    },
+    {
+      "id": "PF-002",
+      "title": "User Profile Page",
+      "description": "As a speedcuber, I want a profile page where I can display my personal information and personal bests.",
+      "acceptanceCriteria": [
+        "Profile page showing username, avatar, bio",
+        "Display user's PB times for different puzzle types",
+        "Show user statistics (total solves, average times)",
+        "Edit profile functionality (avatar upload, bio editing)",
+        "Privacy settings (public/private profile)",
+        "Profile accessible via URL (/profile/:username)"
+      ],
+      "priority": 2,
+      "passes": false
+    },
+    {
+      "id": "PF-003",
+      "title": "Global Leaderboard - Backend API",
+      "description": "As a developer, I want a backend API for leaderboards so that users can compare their times globally.",
+      "acceptanceCriteria": [
+        "API endpoint for global rankings (by puzzle type)",
+        "Filter by timeframe (daily, weekly, monthly, all-time)",
+        "Filter by region/country",
+        "Efficient database queries with indexing",
+        "Pagination support (50 entries per page)",
+        "Cache implementation for performance",
+        "Return user's current rank in response"
+      ],
+      "priority": 2,
+      "passes": false
+    },
+    {
+      "id": "PF-004",
+      "title": "Global Leaderboard - Frontend UI",
+      "description": "As a speedcuber, I want to view leaderboards so that I can see how I rank against other cubers.",
+      "acceptanceCriteria": [
+        "Leaderboard page with table view",
+        "Filter controls (puzzle type, timeframe, region)",
+        "Show rank, username, time, solve count",
+        "Highlight current user's rank",
+        "Responsive table design (mobile-friendly)",
+        "Loading states and error handling",
+        "Pagination controls"
+      ],
+      "priority": 2,
+      "passes": false
+    },
+    {
+      "id": "PF-005",
+      "title": "Cloud Sync - Database Schema",
+      "description": "As a developer, I want a database schema for cloud storage so that user data can be synced across devices.",
+      "acceptanceCriteria": [
+        "Solve table with user_id, time, scramble, timestamp, puzzle_type",
+        "Settings table for user preferences",
+        "Sessions table for organizing solves",
+        "Indexes on frequently queried fields",
+        "Database migration scripts",
+        "Foreign key constraints properly set",
+        "Schema documented in AGENTS.md"
+      ],
+      "priority": 1,
+      "passes": false
+    },
+    {
+      "id": "PF-006",
+      "title": "Cloud Sync - Upload Solves API",
+      "description": "As a speedcuber, I want my solves to automatically sync to the cloud so that I can access them from any device.",
+      "acceptanceCriteria": [
+        "API endpoint to upload solves (POST /api/solves)",
+        "Batch upload support (multiple solves at once)",
+        "Authentication required (JWT validation)",
+        "Conflict resolution (timestamp-based)",
+        "Return sync status and any conflicts",
+        "Rate limiting to prevent abuse",
+        "Error handling for network failures"
+      ],
+      "priority": 1,
+      "passes": false
+    },
+    {
+      "id": "PF-007",
+      "title": "Cloud Sync - Download Solves API",
+      "description": "As a speedcuber, I want to retrieve my solve history from the cloud when I log in on a new device.",
+      "acceptanceCriteria": [
+        "API endpoint to fetch solves (GET /api/solves)",
+        "Support for incremental sync (fetch only new solves since timestamp)",
+        "Pagination for large datasets",
+        "Filter by date range, puzzle type",
+        "Authentication required",
+        "Efficient queries (indexed by user_id and timestamp)",
+        "Return total count for progress indicators"
+      ],
+      "priority": 1,
+      "passes": false
+    },
+    {
+      "id": "PF-008",
+      "title": "Cloud Sync - Frontend Integration",
+      "description": "As a speedcuber, I want seamless sync between local and cloud storage so that my data is always up to date.",
+      "acceptanceCriteria": [
+        "Auto-sync after each solve (debounced)",
+        "Sync indicator in UI (syncing/synced status)",
+        "Offline queue for solves when disconnected",
+        "Merge local and cloud data on login",
+        "Conflict resolution UI (show conflicts, let user choose)",
+        "Settings to enable/disable auto-sync",
+        "Manual sync trigger button"
+      ],
+      "priority": 1,
+      "passes": false
+    },
+    {
+      "id": "PF-009",
+      "title": "Enhanced Statistics - Ao50 and Ao100",
+      "description": "As a speedcuber, I want to see extended averages (Ao50, Ao100) so that I can track consistency over longer sessions.",
+      "acceptanceCriteria": [
+        "Calculate Ao50 (WCA-style: drop best and worst)",
+        "Calculate Ao100 (WCA-style: drop best 5% and worst 5%)",
+        "Display in Statistics component",
+        "Show N/A when insufficient solves",
+        "Efficient calculation (don't recalculate all on each solve)",
+        "Show which solves were dropped",
+        "Update statistics.ts utility"
+      ],
+      "priority": 3,
+      "passes": false
+    },
+    {
+      "id": "PF-010",
+      "title": "Enhanced Statistics - Standard Deviation",
+      "description": "As a competitive speedcuber, I want to see standard deviation to understand my consistency.",
+      "acceptanceCriteria": [
+        "Calculate standard deviation for all solves",
+        "Calculate standard deviation for Ao12, Ao50, Ao100",
+        "Display in Statistics component with label",
+        "Format to 2 decimal places",
+        "Show consistency rating (low/medium/high variance)",
+        "Add tooltip explaining what standard deviation means"
+      ],
+      "priority": 3,
+      "passes": false
+    },
+    {
+      "id": "PF-011",
+      "title": "Performance Graphs - Time Chart",
+      "description": "As a speedcuber, I want to see a line graph of my solve times over sessions so that I can visualize my improvement.",
+      "acceptanceCriteria": [
+        "Line chart showing solve times chronologically",
+        "X-axis: solve number or date/time",
+        "Y-axis: time in seconds",
+        "Responsive chart (works on mobile)",
+        "Interactive tooltips showing solve details",
+        "Use Chart.js or Recharts library",
+        "Add to Statistics or new Graphs page"
+      ],
+      "priority": 4,
+      "passes": false
+    },
+    {
+      "id": "PF-012",
+      "title": "Performance Graphs - Average Trend Lines",
+      "description": "As a speedcuber, I want to see trend lines for my rolling averages so that I can see improvement patterns.",
+      "acceptanceCriteria": [
+        "Overlay Ao5, Ao12 trend lines on time chart",
+        "Different colors for each average type",
+        "Toggle visibility of each trend line",
+        "Legend showing what each line represents",
+        "Smooth lines connecting data points",
+        "Performance optimized for 1000+ solves"
+      ],
+      "priority": 4,
+      "passes": false
+    },
+    {
+      "id": "PF-013",
+      "title": "Session Management - Create and Switch Sessions",
+      "description": "As a speedcuber practicing different techniques, I want to organize solves into separate sessions.",
+      "acceptanceCriteria": [
+        "Create new session with name and optional description",
+        "Switch between sessions via dropdown/selector",
+        "Active session indicator in UI",
+        "Store current session in localStorage and database",
+        "New solves added to active session",
+        "Session list shows solve count for each session",
+        "Default session created on first use"
+      ],
+      "priority": 5,
+      "passes": false
+    },
+    {
+      "id": "PF-014",
+      "title": "Session Management - Session Statistics",
+      "description": "As a speedcuber, I want to see statistics specific to each session so that I can compare different practice approaches.",
+      "acceptanceCriteria": [
+        "Statistics filtered by active session",
+        "Session details page showing all session stats",
+        "Display session metadata (created date, solve count)",
+        "Calculate session-specific PB and averages",
+        "Show session duration (time from first to last solve)",
+        "Session comparison view (compare 2+ sessions side-by-side)"
+      ],
+      "priority": 5,
+      "passes": false
+    },
+    {
+      "id": "PF-015",
+      "title": "Session Management - Archive and Delete",
+      "description": "As a speedcuber, I want to archive or delete old sessions to keep my workspace organized.",
+      "acceptanceCriteria": [
+        "Archive session functionality (hide from main list)",
+        "View archived sessions in separate section",
+        "Restore archived sessions",
+        "Delete session with confirmation dialog",
+        "Soft delete (mark as deleted, keep data for 30 days)",
+        "Cannot delete session with current solves without confirmation",
+        "Export session data before deletion option"
+      ],
+      "priority": 5,
+      "passes": false
+    },
+    {
+      "id": "PF-016",
+      "title": "3D Scramble Preview - Basic Cube Rendering",
+      "description": "As a beginner speedcuber, I want to see a 3D visualization of the scramble so that I can verify I scrambled correctly.",
+      "acceptanceCriteria": [
+        "3D cube rendering using Three.js or CSS 3D",
+        "Show cube in scrambled state",
+        "Cube uses standard color scheme (W/Y, R/O, G/B)",
+        "Responsive sizing (works on mobile)",
+        "Lightweight rendering (< 100ms load time)",
+        "Display below scramble text",
+        "Toggle to show/hide 3D view"
+      ],
+      "priority": 6,
+      "passes": false
+    },
+    {
+      "id": "PF-017",
+      "title": "3D Scramble Preview - Rotation and Interaction",
+      "description": "As a user, I want to rotate the 3D scramble preview to view all sides.",
+      "acceptanceCriteria": [
+        "Mouse drag to rotate cube",
+        "Touch drag support for mobile",
+        "Reset view button to return to default angle",
+        "Smooth rotation animations",
+        "Zoom in/out functionality (mouse wheel or pinch)",
+        "Preset view buttons (front, back, top, bottom)",
+        "Auto-rotate option (slowly rotates automatically)"
+      ],
+      "priority": 6,
+      "passes": false
+    },
+    {
+      "id": "PF-018",
+      "title": "Competition Mode - Inspection Timer",
+      "description": "As a competitive speedcuber, I want a 15-second inspection timer with warnings to practice for competitions.",
+      "acceptanceCriteria": [
+        "Inspection mode toggle in settings",
+        "15-second countdown before solve starts",
+        "Audio/visual warning at 8 seconds (yellow)",
+        "Audio/visual warning at 12 seconds (red)",
+        "+2 penalty applied if solve starts after 15s (before 17s)",
+        "DNF if solve starts after 17s",
+        "Display inspection time remaining during inspection",
+        "Cancel inspection with ESC key"
+      ],
+      "priority": 7,
+      "passes": false
+    },
+    {
+      "id": "PF-019",
+      "title": "Competition Mode - Penalty Management",
+      "description": "As a competitive speedcuber, I want to apply +2 and DNF penalties to solves following WCA rules.",
+      "acceptanceCriteria": [
+        "Add +2 penalty button after solve",
+        "Mark solve as DNF button",
+        "Penalties reflected in time display (+2 shown as time+2)",
+        "DNF solves shown as 'DNF' in history",
+        "Remove penalty option (undo)",
+        "Penalties included in statistics calculations correctly",
+        "DNF solves excluded from averages (or use DNF if >1 DNF in avg)"
+      ],
+      "priority": 7,
+      "passes": false
+    },
+    {
+      "id": "PF-020",
+      "title": "Competition Mode - Ao5 Format",
+      "description": "As a competitive speedcuber, I want an official WCA Ao5 format for competition simulation.",
+      "acceptanceCriteria": [
+        "Competition mode generates 5 consecutive scrambles",
+        "Track all 5 solves together as one attempt",
+        "Calculate Ao5 dropping best and worst",
+        "Display all 5 times with best/worst highlighted",
+        "Show final Ao5 result prominently",
+        "Support +2 and DNF for each solve",
+        "Save competition attempt as a unit in history"
+      ],
+      "priority": 7,
+      "passes": false
+    },
+    {
+      "id": "PF-021",
+      "title": "Multi-Puzzle Support - 2x2 Scrambles",
+      "description": "As a speedcuber, I want to practice 2x2 solves with proper scrambles.",
+      "acceptanceCriteria": [
+        "Add 2x2 puzzle type to puzzle selector",
+        "Generate 2x2 scrambles (9-11 moves, R U F notation)",
+        "No opposite face moves",
+        "Statistics tracked separately for 2x2",
+        "Display '2x2' label when active",
+        "2x2 solves stored with puzzle_type field",
+        "Update scrambleGenerator.ts to support 2x2"
+      ],
+      "priority": 8,
+      "passes": false
+    },
+    {
+      "id": "PF-022",
+      "title": "Multi-Puzzle Support - 4x4 and 5x5 Scrambles",
+      "description": "As a speedcuber, I want to practice 4x4 and 5x5 cubes with WCA-compliant scrambles.",
+      "acceptanceCriteria": [
+        "Add 4x4 and 5x5 to puzzle selector",
+        "Generate 4x4 scrambles (40 moves, includes r R u U f F notation)",
+        "Generate 5x5 scrambles (60 moves, includes r R u U f F d D b B notation)",
+        "Proper move notation for wide turns",
+        "Statistics tracked separately per puzzle",
+        "Scrambles follow WCA standards",
+        "Display current puzzle type prominently"
+      ],
+      "priority": 8,
+      "passes": false
+    },
+    {
+      "id": "PF-023",
+      "title": "Multi-Puzzle Support - Pyraminx and Megaminx",
+      "description": "As a multi-event speedcuber, I want support for Pyraminx and Megaminx puzzles.",
+      "acceptanceCriteria": [
+        "Add Pyraminx and Megaminx to puzzle selector",
+        "Pyraminx scrambles (U L R B notation with tips)",
+        "Megaminx scrambles (R++ D++ style notation, 70 moves)",
+        "Separate statistics for each puzzle type",
+        "Correct scramble notation displayed",
+        "Puzzle-specific 3D preview (if 3D feature enabled)",
+        "Save puzzle type with each solve"
+      ],
+      "priority": 8,
+      "passes": false
+    },
+    {
+      "id": "PF-024",
+      "title": "Data Export - CSV Export",
+      "description": "As a data-conscious cuber, I want to export my solves to CSV so that I can analyze them in Excel or other tools.",
+      "acceptanceCriteria": [
+        "Export button in History component",
+        "Generate CSV with columns: date, time, scramble, puzzle_type, session",
+        "Include +2 and DNF indicators",
+        "Proper CSV formatting (escaped quotes, commas)",
+        "Filename includes date (solves-YYYY-MM-DD.csv)",
+        "Export all solves or filtered selection",
+        "Download triggers browser download"
+      ],
+      "priority": 9,
+      "passes": false
+    },
+    {
+      "id": "PF-025",
+      "title": "Data Export - csTimer Format Compatibility",
+      "description": "As a user switching from csTimer, I want to export in csTimer format so that I can migrate my data.",
+      "acceptanceCriteria": [
+        "Export to csTimer JSON format",
+        "Include all required csTimer fields",
+        "Compatible with csTimer import",
+        "Test import into csTimer successfully",
+        "Preserve scrambles, times, dates",
+        "Export option in settings/history menu",
+        "Documentation on how to import into csTimer"
+      ],
+      "priority": 9,
+      "passes": false
+    },
+    {
+      "id": "PF-026",
+      "title": "Data Import - CSV Import",
+      "description": "As a user migrating from another app, I want to import solves from CSV files.",
+      "acceptanceCriteria": [
+        "Import button with file upload",
+        "Parse CSV with auto-detected columns",
+        "Field mapping UI (map CSV columns to database fields)",
+        "Validation before import (check data format)",
+        "Preview first 10 rows before importing",
+        "Option to merge or replace existing data",
+        "Error handling for malformed CSV",
+        "Success message with import count"
+      ],
+      "priority": 9,
+      "passes": false
+    },
+    {
+      "id": "PF-027",
+      "title": "Data Import - csTimer Import",
+      "description": "As a csTimer user, I want to import my existing data so that I don't lose my solve history.",
+      "acceptanceCriteria": [
+        "Import from csTimer JSON export",
+        "Parse csTimer format correctly",
+        "Convert to internal data format",
+        "Preserve all solve metadata (time, scramble, date)",
+        "Handle csTimer-specific fields gracefully",
+        "Show import preview before confirming",
+        "Success confirmation with solve count imported"
+      ],
+      "priority": 9,
+      "passes": false
+    },
+    {
+      "id": "PF-028",
+      "title": "PWA - Service Worker and Offline Support",
+      "description": "As a mobile user, I want the timer to work offline so that I can practice anywhere without internet.",
+      "acceptanceCriteria": [
+        "Service worker registered and active",
+        "Cache app shell (HTML, CSS, JS)",
+        "Cache timer assets and icons",
+        "Offline functionality for timer, scrambles, local storage",
+        "Queue solves for sync when back online",
+        "Offline indicator in UI",
+        "Update notification when new version available"
+      ],
+      "priority": 10,
+      "passes": false
+    },
+    {
+      "id": "PF-029",
+      "title": "PWA - Install Prompt and App Manifest",
+      "description": "As a mobile user, I want to install the timer as an app on my home screen.",
+      "acceptanceCriteria": [
+        "Web app manifest with name, icons, theme colors",
+        "Icons in multiple sizes (192x192, 512x512)",
+        "Install prompt on supported browsers",
+        "Splash screen on launch",
+        "Standalone display mode (no browser chrome)",
+        "Themed status bar on mobile",
+        "App listed in app drawer on Android"
+      ],
+      "priority": 10,
+      "passes": false
+    },
+    {
+      "id": "PF-030",
+      "title": "Custom Themes - Theme Selector",
+      "description": "As a user, I want to choose from multiple themes to customize the appearance.",
+      "acceptanceCriteria": [
+        "Theme selector in settings",
+        "At least 5 pre-built themes (dark, light, blue, purple, high-contrast)",
+        "Theme preview before selecting",
+        "Apply theme immediately on selection",
+        "Save theme preference to localStorage and user settings",
+        "Theme persists across sessions",
+        "Smooth transition between themes"
+      ],
+      "priority": 11,
+      "passes": false
+    },
+    {
+      "id": "PF-031",
+      "title": "Custom Themes - Custom Color Picker",
+      "description": "As a user, I want to create my own custom color scheme.",
+      "acceptanceCriteria": [
+        "Custom theme creator UI",
+        "Color pickers for primary, background, text colors",
+        "Live preview of custom theme",
+        "Save custom theme with name",
+        "Export/import custom theme (JSON)",
+        "Reset to default option",
+        "Share custom theme URL with encoded colors"
+      ],
+      "priority": 11,
+      "passes": false
+    },
+    {
+      "id": "PF-032",
+      "title": "Social Features - Share Solve to Social Media",
+      "description": "As a speedcuber, I want to share my personal bests on social media to celebrate achievements.",
+      "acceptanceCriteria": [
+        "Share button on solve details",
+        "Generate shareable image with time, scramble, stats",
+        "Social media integration (Twitter, Facebook share dialogs)",
+        "Copy share link to clipboard",
+        "Preview image before sharing",
+        "Include app branding on share image",
+        "Privacy setting to enable/disable sharing"
+      ],
+      "priority": 12,
+      "passes": false
+    },
+    {
+      "id": "PF-033",
+      "title": "1v1 Battle Mode - Real-time Backend Setup",
+      "description": "As a developer, I want a WebSocket backend for real-time 1v1 battles.",
+      "acceptanceCriteria": [
+        "WebSocket server setup (Socket.io or similar)",
+        "Room creation and joining logic",
+        "User authentication for WebSocket connections",
+        "Broadcast scramble to both players",
+        "Receive and broadcast solve times",
+        "Handle disconnections gracefully",
+        "Rate limiting and anti-cheat measures"
+      ],
+      "priority": 13,
+      "passes": false
+    },
+    {
+      "id": "PF-034",
+      "title": "1v1 Battle Mode - Frontend Battle UI",
+      "description": "As a speedcuber, I want to race against a friend in real-time.",
+      "acceptanceCriteria": [
+        "Create/join battle room UI",
+        "Share room code with friend",
+        "Show opponent status (ready/solving/finished)",
+        "Same scramble for both players",
+        "Countdown before solve starts",
+        "Display both times when finished",
+        "Best of 3 or best of 5 format",
+        "Match history and win/loss record"
+      ],
+      "priority": 13,
+      "passes": false
+    },
+    {
+      "id": "PF-035",
+      "title": "Bluetooth Smart Cube - Connection Interface",
+      "description": "As a smart cube owner, I want to connect my Bluetooth cube to automatically track solves.",
+      "acceptanceCriteria": [
+        "Bluetooth connection UI in settings",
+        "Scan for nearby Bluetooth cubes",
+        "Support for GAN i3, GAN 356i protocol",
+        "Pair cube with Web Bluetooth API",
+        "Connection status indicator",
+        "Disconnect option",
+        "Remember paired cube",
+        "Error handling for connection failures"
+      ],
+      "priority": 14,
+      "passes": false
+    },
+    {
+      "id": "PF-036",
+      "title": "Bluetooth Smart Cube - Move Tracking and TPS",
+      "description": "As a smart cube user, I want to see real-time moves and TPS during solves.",
+      "acceptanceCriteria": [
+        "Receive move data from Bluetooth cube",
+        "Parse and display moves in real-time",
+        "Calculate TPS (turns per second)",
+        "Display current cube state visually",
+        "Record move sequence for each solve",
+        "Replay solve move-by-move",
+        "Show TPS graph over time during solve"
+      ],
+      "priority": 14,
+      "passes": false
+    },
+    {
+      "id": "PF-037",
+      "title": "Algorithm Trainer - OLL Cases",
+      "description": "As a speedcuber learning OLL, I want a trainer that helps me practice all 57 OLL cases.",
+      "acceptanceCriteria": [
+        "OLL trainer mode in practice section",
+        "All 57 OLL cases with images",
+        "Generate scramble leading to specific OLL case",
+        "Recognition mode (show case, user identifies algorithm)",
+        "Execution mode (time algorithm execution)",
+        "Track accuracy and times per case",
+        "Mark cases as learned/mastery",
+        "Focus on weak cases"
+      ],
+      "priority": 15,
+      "passes": false
+    },
+    {
+      "id": "PF-038",
+      "title": "Algorithm Trainer - PLL Cases",
+      "description": "As a speedcuber learning PLL, I want to practice all 21 PLL cases.",
+      "acceptanceCriteria": [
+        "PLL trainer mode",
+        "All 21 PLL cases with images",
+        "Generate scrambles for specific PLL case",
+        "Recognition training (identify which PLL)",
+        "Execution training (time execution)",
+        "Track per-case performance",
+        "Display algorithm notation for each case",
+        "Quiz mode (random case, guess which PLL)"
+      ],
+      "priority": 15,
+      "passes": false
+    },
+    {
+      "id": "PF-039",
+      "title": "Performance Optimization - Virtual Scrolling for History",
+      "description": "As a cuber with 10,000+ solves, I want the history list to remain fast and responsive.",
+      "acceptanceCriteria": [
+        "Implement virtual scrolling for History component",
+        "Render only visible items (+ buffer)",
+        "Support for 50,000+ solves without lag",
+        "Smooth scrolling experience",
+        "Maintain scroll position on updates",
+        "Search and filter still work with virtual scrolling",
+        "Load time < 1 second for any size dataset"
+      ],
+      "priority": 16,
+      "passes": false
+    },
+    {
+      "id": "PF-040",
+      "title": "Performance Optimization - Database Indexing",
+      "description": "As a developer, I want optimized database queries so that statistics calculate quickly even with large datasets.",
+      "acceptanceCriteria": [
+        "Add indexes on user_id, timestamp, puzzle_type",
+        "Composite indexes for common query patterns",
+        "Statistics calculation < 500ms for 10k solves",
+        "Leaderboard queries < 1 second",
+        "Database query analysis and optimization",
+        "Document index strategy in AGENTS.md",
+        "Monitor and log slow queries"
+      ],
+      "priority": 16,
+      "passes": false
+    }
+  ]
+}
