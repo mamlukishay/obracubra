@@ -36,7 +36,7 @@ No additional installation needed if you have Node.js!
 ### 1. Create a PRD
 
 You can either:
-- Use the PRD skill (if Amp is installed): Load the prd skill and create a PRD for your feature
+- Use the PRD skill: Load the prd skill and create a PRD for your feature
 - Manually create a `prd.json` file based on `prd.json.example`
 
 ### 2. Run Ralph
@@ -61,7 +61,7 @@ Default is 10 iterations if not specified.
 
 ## Key Concepts
 
-- **Each iteration = fresh context**: Ralph spawns new Amp instances for each story
+- **Each iteration = fresh context**: Ralph spawns new Claude Code instances for each story
 - **Memory persists via**: Git history, `progress.txt`, and `prd.json`
 - **Small tasks work best**: Break large features into story-sized chunks
 - **Quality gates**: All commits must pass typecheck/tests
