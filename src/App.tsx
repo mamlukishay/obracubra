@@ -21,48 +21,47 @@ function App() {
 
   // State machine handlers
   const handleHoldStart = useCallback(() => {
-    if (timerState === 'idle' || timerState === 'stopped') {
-      setTimerState('holding')
-    }
-  }, [timerState])
+    setTimerState((prev) => (prev === 'idle' || prev === 'stopped' ? 'holding' : prev))
+  }, [])
 
   const handleReady = useCallback(() => {
-    if (timerState === 'holding') {
-      setTimerState('ready')
-    }
-  }, [timerState])
+    setTimerState((prev) => (prev === 'holding' ? 'ready' : prev))
+  }, [])
 
   const handleRelease = useCallback(() => {
-    if (timerState === 'holding') {
-      // Released too early, go back to idle
-      setTimerState('idle')
-    } else if (timerState === 'ready') {
-      // Start the timer
-      reset()
-      start()
-      setTimerState('running')
-    } else if (timerState === 'stopped') {
-      // Generate new scramble and go to idle
-      setCurrentScramble(generateScramble())
-      reset()
-      setTimerState('idle')
-    }
-  }, [timerState, reset, start])
+    setTimerState((prev) => {
+      if (prev === 'holding') return 'idle'
+      if (prev === 'ready') {
+        reset()
+        start()
+        return 'running'
+      }
+      if (prev === 'stopped') {
+        setCurrentScramble(generateScramble())
+        reset()
+        return 'idle'
+      }
+      return prev
+    })
+  }, [reset, start])
 
   const handleStop = useCallback(() => {
-    if (timerState === 'running') {
-      const finalTime = stop()
-      // Save the solve
-      const newSolve: Solve = {
-        id: crypto.randomUUID(),
-        time: finalTime,
-        scramble: currentScramble,
-        timestamp: new Date(),
+    setTimerState((prev) => {
+      if (prev === 'running') {
+        const finalTime = stop()
+        // Save the solve
+        const newSolve: Solve = {
+          id: crypto.randomUUID(),
+          time: finalTime,
+          scramble: currentScramble,
+          timestamp: new Date(),
+        }
+        setSolves((prevSolves) => [newSolve, ...prevSolves])
+        return 'stopped'
       }
-      setSolves((prev) => [newSolve, ...prev])
-      setTimerState('stopped')
-    }
-  }, [timerState, stop, currentScramble, setSolves])
+      return prev
+    })
+  }, [stop, currentScramble, setSolves])
 
   // Handle solve deletion
   const handleDelete = useCallback(

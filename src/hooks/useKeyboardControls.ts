@@ -27,6 +27,22 @@ export function useKeyboardControls({
   const holdTimeoutRef = useRef<number | null>(null)
   const isHoldingRef = useRef(false)
 
+  // Use refs to keep callbacks and state stable for the event listeners
+  const stateRef = useRef(timerState)
+  const onHoldStartRef = useRef(onHoldStart)
+  const onReadyRef = useRef(onReady)
+  const onReleaseRef = useRef(onRelease)
+  const onStopRef = useRef(onStop)
+
+  // Update refs when props change
+  useEffect(() => {
+    stateRef.current = timerState
+    onHoldStartRef.current = onHoldStart
+    onReadyRef.current = onReady
+    onReleaseRef.current = onRelease
+    onStopRef.current = onStop
+  }, [timerState, onHoldStart, onReady, onRelease, onStop])
+
   const clearHoldTimeout = useCallback(() => {
     if (holdTimeoutRef.current !== null) {
       clearTimeout(holdTimeoutRef.current)
@@ -38,47 +54,50 @@ export function useKeyboardControls({
     if (isHoldingRef.current) return
     isHoldingRef.current = true
 
-    if (timerState === 'idle' || timerState === 'stopped') {
-      onHoldStart()
+    const state = stateRef.current
+    if (state === 'idle' || state === 'stopped') {
+      onHoldStartRef.current()
       // Set timeout for ready state
       holdTimeoutRef.current = window.setTimeout(() => {
-        onReady()
+        onReadyRef.current()
       }, HOLD_THRESHOLD_MS)
-    } else if (timerState === 'running') {
-      onStop()
+    } else if (state === 'running') {
+      onStopRef.current()
     }
-  }, [timerState, onHoldStart, onReady, onStop])
+  }, [])
 
   const handleHoldEnd = useCallback(() => {
     if (!isHoldingRef.current) return
     isHoldingRef.current = false
     clearHoldTimeout()
 
-    if (timerState === 'holding') {
+    const state = stateRef.current
+    if (state === 'holding') {
       // Released too early, go back to idle
-      onRelease()
-    } else if (timerState === 'ready') {
+      onReleaseRef.current()
+    } else if (state === 'ready') {
       // Released while ready, start timer
-      onRelease()
-    } else if (timerState === 'stopped') {
+      onReleaseRef.current()
+    } else if (state === 'stopped') {
       // Generate new scramble and go to idle
-      onRelease()
+      onReleaseRef.current()
     }
-  }, [timerState, onRelease, clearHoldTimeout])
+  }, [clearHoldTimeout])
 
   useEffect(() => {
     if (!enabled) return
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      const state = stateRef.current
       if (e.code === 'Space') {
         e.preventDefault()
         if (!e.repeat) {
           handleHoldStart()
         }
-      } else if (timerState === 'running') {
+      } else if (state === 'running') {
         // Any key stops the timer
         e.preventDefault()
-        onStop()
+        onStopRef.current()
       }
     }
 
@@ -90,15 +109,17 @@ export function useKeyboardControls({
     }
 
     const handleTouchStart = (e: TouchEvent) => {
+      const state = stateRef.current
       // Prevent default only when timer is idle or running to allow scrolling in history
-      if (timerState === 'idle' || timerState === 'running' || timerState === 'stopped') {
+      if (state === 'idle' || state === 'running' || state === 'stopped') {
         e.preventDefault()
       }
       handleHoldStart()
     }
 
     const handleTouchEnd = (e: TouchEvent) => {
-      if (timerState === 'holding' || timerState === 'ready' || timerState === 'stopped') {
+      const state = stateRef.current
+      if (state === 'holding' || state === 'ready' || state === 'stopped') {
         e.preventDefault()
       }
       handleHoldEnd()
@@ -116,5 +137,5 @@ export function useKeyboardControls({
       document.removeEventListener('touchend', handleTouchEnd)
       clearHoldTimeout()
     }
-  }, [enabled, timerState, handleHoldStart, handleHoldEnd, onStop, clearHoldTimeout])
+  }, [enabled, handleHoldStart, handleHoldEnd, clearHoldTimeout])
 }
