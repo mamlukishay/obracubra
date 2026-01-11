@@ -1,37 +1,35 @@
 # Ralph Setup Guide for Obracubra
 
-Ralph has been installed in this project! This directory contains all the files needed to run autonomous AI agent loops.
+Ralph has been installed in this project! This directory contains all the files needed to run autonomous AI agent loops **using Claude Code CLI**.
 
 ## What's Installed
 
 ```
 scripts/ralph/
-├── ralph.sh              # Main orchestration script
+├── ralph.sh              # Main orchestration script (adapted for Claude Code)
 ├── prompt.md             # Instructions for each AI iteration
 ├── prd.json.example      # Example PRD format
-├── skills/               # Amp skills for PRD generation
+├── skills/               # Skills for PRD generation
 │   ├── prd/             # Skill to create PRDs
 │   └── ralph/           # Skill to convert PRDs to JSON
 ├── RALPH_README.md       # Full Ralph documentation
 └── SETUP.md             # This file
 ```
 
-## Prerequisites Still Needed
+## Prerequisites
 
 ✅ **jq** - Already installed at `/usr/bin/jq`
-❌ **Amp CLI** - Not yet installed. Ralph requires [Amp CLI](https://ampcode.com) to run.
+✅ **Claude Code CLI** - Available via `npx @anthropic/claude-code`
+✅ **Node.js/npm** - Required for Claude Code CLI
 
-### Installing Amp CLI
+### Claude Code CLI
 
-Visit https://ampcode.com to install Amp CLI for your system.
-
-After installation, configure auto-handoff in `~/.config/amp/settings.json`:
-
-```json
-{
-  "amp.experimental.autoHandoff": { "context": 90 }
-}
+This implementation uses Claude Code CLI instead of Amp. The script runs:
+```bash
+npx @anthropic/claude-code --dangerously-skip-permissions
 ```
+
+No additional installation needed if you have Node.js!
 
 ## How to Use Ralph
 
@@ -72,7 +70,7 @@ Default is 10 iterations if not specified.
 
 ```json
 {
-  "branchName": "ralph/my-feature",
+  "branchName": "claude/my-feature",
   "userStories": [
     {
       "id": "001",
@@ -92,13 +90,13 @@ Default is 10 iterations if not specified.
 
 ## Next Steps
 
-1. Install Amp CLI from https://ampcode.com
-2. Configure Amp settings as shown above
-3. Create your first PRD
-4. Run `./scripts/ralph/ralph.sh`
+1. Create your first PRD (manually or using the skills)
+2. Run `./scripts/ralph/ralph.sh [iterations]`
+3. Monitor progress in `progress.txt`
 
 ## Resources
 
 - [Full Ralph Documentation](./RALPH_README.md)
+- [frankbria/ralph-claude-code](https://github.com/frankbria/ralph-claude-code) - Claude Code implementation
 - [Geoffrey Huntley's Ralph Pattern](https://ghuntley.com/ralph/)
-- [Amp Documentation](https://ampcode.com/manual)
+- [Ralph + Claude Code Article](https://medium.com/coding-nexus/claude-code-ralph-how-i-built-an-ai-that-ships-production-code-while-i-sleep-3ca37d08edaa)
