@@ -5,7 +5,7 @@ import { History } from '@/components/History'
 import { Statistics } from '@/components/Statistics'
 import { useTimer } from '@/hooks/useTimer'
 import { useKeyboardControls } from '@/hooks/useKeyboardControls'
-import { useLocalStorage } from '@/hooks/useLocalStorage'
+import { useSolves } from '@/hooks/useSolves'
 import { generateScramble } from '@/utils/scrambleGenerator'
 import { calculateStatistics } from '@/utils/statistics'
 import type { TimerState, Solve } from '@/types'
@@ -13,7 +13,7 @@ import type { TimerState, Solve } from '@/types'
 function App() {
   const [timerState, setTimerState] = useState<TimerState>('idle')
   const [currentScramble, setCurrentScramble] = useState(() => generateScramble())
-  const [solves, setSolves] = useLocalStorage()
+  const [solves, setSolves, isLoading] = useSolves()
   const { time, start, stop, reset } = useTimer()
 
   // Calculate statistics from solves
@@ -93,7 +93,11 @@ function App() {
           {/* Sidebar */}
           <aside className="space-y-4">
             <Statistics stats={stats} />
-            <History solves={solves} onDelete={handleDelete} />
+            {isLoading ? (
+              <div className="text-center text-muted-foreground">Loading solves...</div>
+            ) : (
+              <History solves={solves} onDelete={handleDelete} />
+            )}
           </aside>
         </div>
       </div>
