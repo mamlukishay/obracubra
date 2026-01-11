@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Environment variables
+.env
+
+# Server build
+server/dist
+
+# PostgreSQL data
+.pgdata
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
