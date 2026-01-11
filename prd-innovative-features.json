@@ -1,0 +1,679 @@
+{
+  "project": "Cubic Timer - Innovative Features",
+  "branchName": "claude/innovative-features",
+  "description": "Novel, innovative features that don't exist in mainstream speedcubing apps including AI coaching, video analysis, accessibility features, AR experiences, and biomechanical analysis.",
+  "userStories": [
+    {
+      "id": "IF-001",
+      "title": "AI Solve Coach - Data Collection and Model Setup",
+      "description": "As a developer, I want to set up infrastructure for collecting solve data and training ML models for AI coaching.",
+      "acceptanceCriteria": [
+        "Database schema for solve analytics (phase times, patterns)",
+        "Data collection pipeline for solve metrics",
+        "Setup ML model training environment (Python/TensorFlow)",
+        "Export solve data in training-ready format",
+        "Privacy controls for data collection (opt-in)",
+        "Anonymization for training data",
+        "Document data schema in AGENTS.md"
+      ],
+      "priority": 1,
+      "passes": false
+    },
+    {
+      "id": "IF-002",
+      "title": "AI Solve Coach - Pattern Analysis",
+      "description": "As a speedcuber, I want AI to analyze my solve patterns and identify weaknesses.",
+      "acceptanceCriteria": [
+        "Analyze solve time distribution and trends",
+        "Detect consistency issues (high variance)",
+        "Identify slow phases (if smart cube data available)",
+        "Compare user's times to their historical average",
+        "Generate insights report (top 3 weaknesses)",
+        "Display insights in coaching dashboard",
+        "Update weekly with new data"
+      ],
+      "priority": 1,
+      "passes": false
+    },
+    {
+      "id": "IF-003",
+      "title": "AI Solve Coach - Personalized Recommendations",
+      "description": "As a speedcuber wanting to improve, I want personalized training recommendations based on my weaknesses.",
+      "acceptanceCriteria": [
+        "Generate weekly practice plans",
+        "Recommend specific areas to focus on",
+        "Suggest algorithm practice based on detected slowness",
+        "Recommend session types (speed, accuracy, consistency)",
+        "Natural language explanations for each recommendation",
+        "Track recommendation effectiveness over time",
+        "Adjust recommendations based on progress"
+      ],
+      "priority": 1,
+      "passes": false
+    },
+    {
+      "id": "IF-004",
+      "title": "AI Solve Coach - Chat Interface",
+      "description": "As a speedcuber, I want to chat with an AI coach to ask questions about improvement.",
+      "acceptanceCriteria": [
+        "Chat UI in coaching section",
+        "Natural language question input",
+        "AI responses using LLM (GPT/Claude API)",
+        "Context-aware (knows user's solve history and stats)",
+        "Provide actionable advice",
+        "Cite specific data (your Ao12 is X, try Y)",
+        "Chat history saved per user"
+      ],
+      "priority": 2,
+      "passes": false
+    },
+    {
+      "id": "IF-005",
+      "title": "Video Recording - Camera Access and Setup",
+      "description": "As a speedcuber, I want the app to access my camera so it can record solves.",
+      "acceptanceCriteria": [
+        "Request camera permission",
+        "Camera preview in settings",
+        "Select front or rear camera",
+        "Test video recording capability",
+        "Display camera status (active/inactive)",
+        "Privacy notice for camera usage",
+        "Settings to enable/disable auto-recording"
+      ],
+      "priority": 3,
+      "passes": false
+    },
+    {
+      "id": "IF-006",
+      "title": "Video Recording - Automatic Solve Recording",
+      "description": "As a speedcuber, I want solves to be automatically recorded on video.",
+      "acceptanceCriteria": [
+        "Start recording when timer enters 'ready' state",
+        "Stop recording when solve complete",
+        "Save video with solve metadata (time, scramble, date)",
+        "Efficient video compression (H.264)",
+        "1-minute solve approximately 50MB",
+        "Store locally with option to upload to cloud",
+        "Auto-delete old recordings after 30 days (configurable)"
+      ],
+      "priority": 3,
+      "passes": false
+    },
+    {
+      "id": "IF-007",
+      "title": "Video Recording - Playback and Review",
+      "description": "As a speedcuber, I want to watch recorded solves to review my technique.",
+      "acceptanceCriteria": [
+        "Video player in solve history details",
+        "Sync video with timer overlay",
+        "Playback controls (play, pause, seek)",
+        "Speed control (0.25x, 0.5x, 1x, 2x)",
+        "Frame-by-frame scrubbing",
+        "Timer overlay shows current time at each point",
+        "Download video option"
+      ],
+      "priority": 3,
+      "passes": false
+    },
+    {
+      "id": "IF-008",
+      "title": "Video Analysis - Cube State Recognition Model",
+      "description": "As a developer, I want a computer vision model that can recognize cube state from video.",
+      "acceptanceCriteria": [
+        "Train CNN model to detect cube orientation and colors",
+        "Detect 9 stickers per visible face",
+        "Accuracy > 90% in good lighting",
+        "Model runs on-device (TensorFlow Lite or ONNX)",
+        "Inference time < 100ms per frame",
+        "Support multiple cube color schemes",
+        "Document model architecture in AGENTS.md"
+      ],
+      "priority": 4,
+      "passes": false
+    },
+    {
+      "id": "IF-009",
+      "title": "Video Analysis - Move Sequence Reconstruction",
+      "description": "As a cuber without a smart cube, I want the app to reconstruct my solve from video.",
+      "acceptanceCriteria": [
+        "Analyze video frame-by-frame to detect moves",
+        "Generate move sequence (R U R' U' ...)",
+        "Calculate TPS from video analysis",
+        "Display confidence score for each detected move",
+        "Processing time < 2x real-time (1-min solve in <2 mins)",
+        "Manual correction UI for errors",
+        "Export reconstruction to text format"
+      ],
+      "priority": 4,
+      "passes": false
+    },
+    {
+      "id": "IF-010",
+      "title": "Accessibility - Screen Reader Optimization",
+      "description": "As a visually impaired speedcuber, I want full screen reader support so I can use the timer independently.",
+      "acceptanceCriteria": [
+        "ARIA labels on all interactive elements",
+        "Semantic HTML structure",
+        "Keyboard navigation works for all features",
+        "Focus indicators visible",
+        "Live regions for timer updates",
+        "Announce timer state changes to screen reader",
+        "Test with NVDA, JAWS, VoiceOver"
+      ],
+      "priority": 5,
+      "passes": false
+    },
+    {
+      "id": "IF-011",
+      "title": "Accessibility - Audio Feedback and Voice Control",
+      "description": "As a visually impaired cuber, I want audio feedback and voice control for hands-free operation.",
+      "acceptanceCriteria": [
+        "Text-to-speech for scrambles",
+        "Spoken time announcements (every 5s configurable)",
+        "Voice commands (start inspection, ready, stop)",
+        "Voice command recognition > 95% accuracy",
+        "Audio feedback for timer state transitions",
+        "Customizable audio settings (volume, speed, verbosity)",
+        "Multi-language TTS support"
+      ],
+      "priority": 5,
+      "passes": false
+    },
+    {
+      "id": "IF-012",
+      "title": "Accessibility - High Contrast and Large Text Modes",
+      "description": "As a low-vision user, I want high contrast themes and adjustable text sizes.",
+      "acceptanceCriteria": [
+        "High contrast theme (WCAG AAA compliant)",
+        "Text size controls (100% - 300%)",
+        "Large touch targets (minimum 44px, up to 200px configurable)",
+        "Zoom-friendly responsive layout",
+        "No loss of functionality when zoomed",
+        "Color-blind friendly color schemes",
+        "Test with contrast analyzers"
+      ],
+      "priority": 5,
+      "passes": false
+    },
+    {
+      "id": "IF-013",
+      "title": "Accessibility - Haptic Feedback",
+      "description": "As a user with visual or hearing impairments, I want haptic feedback for timer states.",
+      "acceptanceCriteria": [
+        "Vibration patterns for timer states (ready, start, stop)",
+        "Vibration for milestone times (10s, 20s, 30s)",
+        "Vibration for inspection warnings",
+        "Customizable vibration intensity",
+        "Vibration API implementation (mobile)",
+        "Settings to enable/disable haptic feedback",
+        "Different patterns for different events"
+      ],
+      "priority": 5,
+      "passes": false
+    },
+    {
+      "id": "IF-014",
+      "title": "Achievement System - Achievement Database Schema",
+      "description": "As a developer, I want a database for tracking achievements and unlocks.",
+      "acceptanceCriteria": [
+        "Achievement definitions table (id, name, description, criteria)",
+        "User achievements table (user_id, achievement_id, unlocked_date)",
+        "Unlock criteria stored as JSON",
+        "Achievement categories (speed, consistency, volume, special)",
+        "Rarity tiers (common, rare, epic, legendary)",
+        "Database migration for achievements",
+        "Seed database with 50+ initial achievements"
+      ],
+      "priority": 6,
+      "passes": false
+    },
+    {
+      "id": "IF-015",
+      "title": "Achievement System - Achievement Detection",
+      "description": "As a speedcuber, I want to automatically earn achievements when I hit milestones.",
+      "acceptanceCriteria": [
+        "Check achievements after each solve",
+        "Detect speed milestones (sub-20, sub-15, sub-10)",
+        "Detect consistency achievements (10 consecutive solves within range)",
+        "Detect volume achievements (100 solves, 1000 solves)",
+        "Detect streak achievements (7 days, 30 days)",
+        "Award achievement and save to database",
+        "Event-driven achievement checking (efficient)"
+      ],
+      "priority": 6,
+      "passes": false
+    },
+    {
+      "id": "IF-016",
+      "title": "Achievement System - Achievement Notifications",
+      "description": "As a speedcuber, I want celebratory notifications when I earn achievements.",
+      "acceptanceCriteria": [
+        "Achievement unlock modal/toast",
+        "Animated celebration (confetti, sparkles)",
+        "Display achievement icon and description",
+        "Sound effect on unlock (optional)",
+        "Achievement history/gallery page",
+        "Share achievement to social media",
+        "Show progress toward locked achievements"
+      ],
+      "priority": 6,
+      "passes": false
+    },
+    {
+      "id": "IF-017",
+      "title": "Achievement System - Progressive Unlocks",
+      "description": "As a speedcuber, I want to unlock themes and features by earning achievements.",
+      "acceptanceCriteria": [
+        "Link achievements to unlockable content",
+        "Unlock new themes (earn sub-15 unlocks speed theme)",
+        "Unlock special features or customizations",
+        "Display locked vs unlocked status",
+        "Show what's required to unlock",
+        "Visual progression toward unlocks",
+        "At least 10 unlockable items at launch"
+      ],
+      "priority": 6,
+      "passes": false
+    },
+    {
+      "id": "IF-018",
+      "title": "Gamification - Daily Challenges",
+      "description": "As a speedcuber, I want daily challenges to keep me motivated to practice.",
+      "acceptanceCriteria": [
+        "Generate new daily challenge at midnight (user timezone)",
+        "Challenge types (achieve Ao5 under X, complete 20 solves, beat your Ao12)",
+        "Display active daily challenge",
+        "Track completion progress",
+        "Reward XP or special badge on completion",
+        "Challenge history (view past challenges)",
+        "Notification for new daily challenge"
+      ],
+      "priority": 7,
+      "passes": false
+    },
+    {
+      "id": "IF-019",
+      "title": "Gamification - Streak Tracking",
+      "description": "As a speedcuber, I want to track consecutive days of solving to build a habit.",
+      "acceptanceCriteria": [
+        "Track consecutive days with at least 1 solve",
+        "Display current streak prominently",
+        "Streak calendar visualization",
+        "Grace period (1 miss per week allowed)",
+        "Streak milestones (7, 30, 100, 365 days)",
+        "Notification to maintain streak",
+        "Recover streak option (1 per month)"
+      ],
+      "priority": 7,
+      "passes": false
+    },
+    {
+      "id": "IF-020",
+      "title": "AR Scramble Visualization - Cube Detection",
+      "description": "As a visual learner, I want AR to detect my physical cube so I can overlay information on it.",
+      "acceptanceCriteria": [
+        "Use device camera to detect cube in frame",
+        "Cube detection within 500ms",
+        "Track cube position and orientation",
+        "Works in various lighting conditions",
+        "Supports 2x2, 3x3, 4x4 cubes",
+        "Display bounding box around detected cube",
+        "ARKit (iOS) and ARCore (Android) implementation"
+      ],
+      "priority": 8,
+      "passes": false
+    },
+    {
+      "id": "IF-021",
+      "title": "AR Scramble Visualization - State Recognition",
+      "description": "As a user, I want AR to recognize my cube's current state to verify scrambles.",
+      "acceptanceCriteria": [
+        "Recognize cube state from camera (all visible faces)",
+        "95%+ accuracy in good lighting",
+        "Real-time state updates (30fps)",
+        "Display recognized state as virtual cube",
+        "Compare with expected scrambled state",
+        "Highlight misscrambled pieces in red",
+        "Manual correction option"
+      ],
+      "priority": 8,
+      "passes": false
+    },
+    {
+      "id": "IF-022",
+      "title": "AR Scramble Visualization - Tutorial Overlays",
+      "description": "As a beginner, I want AR arrows showing me the next move in a scramble or algorithm.",
+      "acceptanceCriteria": [
+        "Overlay 3D arrows on physical cube",
+        "Show next move direction",
+        "Animate arrow for rotation direction",
+        "Step through scramble/algorithm move-by-move",
+        "Detect when move is completed (advance automatically)",
+        "Practice mode for learning algorithms",
+        "Works in real-time at 30fps"
+      ],
+      "priority": 8,
+      "passes": false
+    },
+    {
+      "id": "IF-023",
+      "title": "Fitness Integration - Calorie Estimation",
+      "description": "As a health-conscious cuber, I want to see estimated calories burned during solving sessions.",
+      "acceptanceCriteria": [
+        "Estimate calories based on session duration and intensity",
+        "Use TPS as intensity metric",
+        "Display calories burned per session",
+        "Cumulative calorie tracking (daily, weekly, monthly)",
+        "Calorie counter in statistics dashboard",
+        "Research-based calorie model (cite sources)",
+        "Configurable user weight for accuracy"
+      ],
+      "priority": 9,
+      "passes": false
+    },
+    {
+      "id": "IF-024",
+      "title": "Fitness Integration - Health App Export",
+      "description": "As a fitness tracker user, I want cubing sessions exported to Apple Health or Google Fit.",
+      "acceptanceCriteria": [
+        "Integration with Apple Health (iOS)",
+        "Integration with Google Fit (Android)",
+        "Export session as 'Mind & Body' or custom activity",
+        "Include duration, calories, heart rate (if available)",
+        "Export automatically after each session (opt-in)",
+        "Manual export option",
+        "Privacy controls for health data sharing"
+      ],
+      "priority": 9,
+      "passes": false
+    },
+    {
+      "id": "IF-025",
+      "title": "Ergonomic Analysis - Hand Tracking Setup",
+      "description": "As a high-volume speedcuber, I want the app to track my hand movements to prevent injury.",
+      "acceptanceCriteria": [
+        "Use camera to track hand/wrist movements (MediaPipe)",
+        "Detect 20+ hand keypoints per frame",
+        "Real-time tracking at 30fps",
+        "Privacy-first (all processing on-device)",
+        "Low battery impact (< 10% increase)",
+        "Works with front or rear camera",
+        "Enable/disable in settings"
+      ],
+      "priority": 10,
+      "passes": false
+    },
+    {
+      "id": "IF-026",
+      "title": "Ergonomic Analysis - Strain Detection",
+      "description": "As a speedcuber, I want to be warned about risky hand positions that could cause injury.",
+      "acceptanceCriteria": [
+        "Detect awkward wrist angles (> 30° deviation)",
+        "Identify excessive finger extension",
+        "Detect grip tension patterns",
+        "Alert when risky pattern detected",
+        "Ergonomic score (1-100) for each solve",
+        "Suggestions for improving technique",
+        "Track injury risk over time"
+      ],
+      "priority": 10,
+      "passes": false
+    },
+    {
+      "id": "IF-027",
+      "title": "Ergonomic Analysis - Warm-up Routines",
+      "description": "As a speedcuber, I want guided warm-up exercises before sessions to prevent injury.",
+      "acceptanceCriteria": [
+        "Library of 10+ hand/wrist exercises",
+        "Guided warm-up routine (5 minutes)",
+        "Video or animation demonstrations",
+        "Timer for each exercise",
+        "Recommendation to warm up before session",
+        "Track warm-up completion",
+        "Custom routine builder"
+      ],
+      "priority": 10,
+      "passes": false
+    },
+    {
+      "id": "IF-028",
+      "title": "Mentor-Mentee System - Mentor Profiles",
+      "description": "As an experienced cuber, I want to offer mentorship to help beginners improve.",
+      "acceptanceCriteria": [
+        "Mentor signup form (experience, specialties, availability)",
+        "Mentor profile page (bio, average times, rating)",
+        "Verification system (verify sub-X times with video)",
+        "Specialties selection (CFOP, Roux, beginner-friendly)",
+        "Availability settings (timezone, hours per week)",
+        "Mentor dashboard showing active mentees",
+        "Review and rating system for mentors"
+      ],
+      "priority": 11,
+      "passes": false
+    },
+    {
+      "id": "IF-029",
+      "title": "Mentor-Mentee System - Matching Algorithm",
+      "description": "As a beginner, I want to be matched with a compatible mentor who can help me improve.",
+      "acceptanceCriteria": [
+        "Matching based on skill gap (mentor > mentee)",
+        "Timezone compatibility check",
+        "Language matching",
+        "Method matching (CFOP mentor for CFOP learner)",
+        "Availability alignment",
+        "Propose top 3 mentor matches",
+        "Accept/decline match requests"
+      ],
+      "priority": 11,
+      "passes": false
+    },
+    {
+      "id": "IF-030",
+      "title": "Mentor-Mentee System - Shared Dashboard",
+      "description": "As a mentor, I want to view my mentee's progress and assign practice routines.",
+      "acceptanceCriteria": [
+        "Shared dashboard with mentee's solve history",
+        "View mentee's statistics and graphs",
+        "Assign practice routines/goals",
+        "Annotate specific solves with feedback",
+        "Progress tracking toward goals",
+        "Messaging between mentor and mentee",
+        "Privacy controls (mentee can hide specific data)"
+      ],
+      "priority": 11,
+      "passes": false
+    },
+    {
+      "id": "IF-031",
+      "title": "Global Solve Events - Event Scheduling System",
+      "description": "As a competitive cuber, I want to participate in hourly global events with the same scramble.",
+      "acceptanceCriteria": [
+        "Event scheduler (hourly, daily, weekly events)",
+        "Synchronized scramble distribution (same scramble for all)",
+        "Event countdown timer",
+        "Event notification 5 minutes before start",
+        "Event types (Ao5, Ao12, single solve)",
+        "Events for all puzzle types",
+        "Event calendar showing upcoming events"
+      ],
+      "priority": 12,
+      "passes": false
+    },
+    {
+      "id": "IF-032",
+      "title": "Global Solve Events - Real-time Leaderboard",
+      "description": "As a participant, I want to see live results as other cubers complete the event.",
+      "acceptanceCriteria": [
+        "WebSocket connection for live updates",
+        "Leaderboard updates within 1 second of solve submission",
+        "Show rank, username, time, country",
+        "Support for 10,000+ simultaneous participants",
+        "Highlight current user's position",
+        "Filter by country/region",
+        "Final results after event ends"
+      ],
+      "priority": 12,
+      "passes": false
+    },
+    {
+      "id": "IF-033",
+      "title": "Global Solve Events - Anti-cheat System",
+      "description": "As an organizer, I want anti-cheat measures to ensure fair competition.",
+      "acceptanceCriteria": [
+        "Statistical analysis of solve patterns",
+        "Detect impossible times (too fast for human)",
+        "Require video verification for top times",
+        "Flag suspicious patterns (always sub-X on events only)",
+        "Manual review system for flagged users",
+        "Ban system for confirmed cheaters",
+        "Transparent appeals process"
+      ],
+      "priority": 12,
+      "passes": false
+    },
+    {
+      "id": "IF-034",
+      "title": "Solve Prediction - Phase Detection Model",
+      "description": "As a developer, I want a model that can detect solve phases to enable real-time prediction.",
+      "acceptanceCriteria": [
+        "Train model to detect cross, F2L, OLL, PLL phases",
+        "Works with smart cube move data",
+        "Phase detection accuracy > 85%",
+        "Real-time inference (< 50ms)",
+        "Export phase completion times",
+        "Model works for CFOP method",
+        "Document model architecture"
+      ],
+      "priority": 13,
+      "passes": false
+    },
+    {
+      "id": "IF-035",
+      "title": "Solve Prediction - Real-time Pace Feedback",
+      "description": "As a competitive cuber, I want real-time feedback if I'm on pace for a PB.",
+      "acceptanceCriteria": [
+        "Predict final time after F2L completion",
+        "70%+ prediction accuracy",
+        "Visual indicator (green glow if on PB pace)",
+        "Optional audio cue (single beep)",
+        "Configurable sensitivity (only PB, any sub-X)",
+        "Non-intrusive feedback (doesn't distract)",
+        "Learn user's typical pacing patterns"
+      ],
+      "priority": 13,
+      "passes": false
+    },
+    {
+      "id": "IF-036",
+      "title": "Multilingual Support - i18n Infrastructure",
+      "description": "As a non-English speaking cuber, I want the app in my native language.",
+      "acceptanceCriteria": [
+        "Setup i18n library (react-i18next or similar)",
+        "Extract all UI strings to translation files",
+        "Language selector in settings",
+        "Detect browser language on first load",
+        "Support for 10+ languages at launch",
+        "RTL layout support for Arabic/Hebrew",
+        "Date and number formatting per locale"
+      ],
+      "priority": 14,
+      "passes": false
+    },
+    {
+      "id": "IF-037",
+      "title": "Multilingual Support - Community Translation Platform",
+      "description": "As a community member, I want to contribute translations in my language.",
+      "acceptanceCriteria": [
+        "Translation contribution interface",
+        "Crowdsourced translation submissions",
+        "Review and approval workflow",
+        "Translation quality voting",
+        "Credit contributors in app",
+        "Export/import translation files",
+        "Integration with Crowdin or similar platform"
+      ],
+      "priority": 14,
+      "passes": false
+    },
+    {
+      "id": "IF-038",
+      "title": "Music Integration - Rhythm Analysis",
+      "description": "As a cuber who solves to music, I want the app to recommend music that matches my solving tempo.",
+      "acceptanceCriteria": [
+        "Analyze user's TPS across solves",
+        "Calculate comfortable BPM range",
+        "Spotify API integration for playlist creation",
+        "Generate playlists matching BPM",
+        "Apple Music integration (iOS)",
+        "Update playlists based on current TPS trends",
+        "Privacy-respecting (no data sent to music providers)"
+      ],
+      "priority": 15,
+      "passes": false
+    },
+    {
+      "id": "IF-039",
+      "title": "Music Integration - Metronome and Audio Cues",
+      "description": "As a speedcuber, I want a metronome to practice consistent turning speed.",
+      "acceptanceCriteria": [
+        "Metronome with adjustable BPM (60-240)",
+        "Audio click track",
+        "Visual metronome indicator",
+        "Sync with user's average TPS",
+        "Optional during solves",
+        "Volume control",
+        "Different sound options (click, beep, drum)"
+      ],
+      "priority": 15,
+      "passes": false
+    },
+    {
+      "id": "IF-040",
+      "title": "Virtual Pet Companion - Pet Selection and Setup",
+      "description": "As a cuber, I want a virtual pet that grows with my solving activity.",
+      "acceptanceCriteria": [
+        "Choose from 5 pet types (cube creature designs)",
+        "Pet appears on main screen",
+        "Animated idle state",
+        "Pet has name (user-customizable)",
+        "Pet stats (happiness, level, experience)",
+        "Save pet data to database",
+        "Cute, motivating design"
+      ],
+      "priority": 16,
+      "passes": false
+    },
+    {
+      "id": "IF-041",
+      "title": "Virtual Pet Companion - Growth and Evolution",
+      "description": "As a cuber, I want my pet to level up and evolve as I solve more cubes.",
+      "acceptanceCriteria": [
+        "Pet gains XP for each solve",
+        "Level up system (levels 1-50)",
+        "Evolution at levels 10, 25, 50",
+        "Evolution animations",
+        "3 evolution stages per pet type",
+        "Each evolution has unique appearance",
+        "Display level and XP progress bar"
+      ],
+      "priority": 16,
+      "passes": false
+    },
+    {
+      "id": "IF-042",
+      "title": "Virtual Pet Companion - Reactions and Animations",
+      "description": "As a cuber, I want my pet to react to my solves to make practice more fun.",
+      "acceptanceCriteria": [
+        "Pet celebrates on PB (jump, sparkle animation)",
+        "Pet encourages on slow solve (supportive animation)",
+        "Pet sympathizes on DNF (sad but encouraging)",
+        "Pet gets excited during solve streaks",
+        "Random idle animations",
+        "At least 10 distinct animations",
+        "Smooth sprite-based or CSS animations"
+      ],
+      "priority": 16,
+      "passes": false
+    }
+  ]
+}
