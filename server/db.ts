@@ -28,6 +28,21 @@ export async function initializeDatabase() {
   const client = await pool.connect();
   try {
     await client.query(`
+      CREATE TABLE IF NOT EXISTS users (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        email VARCHAR(255) UNIQUE NOT NULL,
+        username VARCHAR(50) UNIQUE NOT NULL,
+        password_hash VARCHAR(255) NOT NULL,
+        oauth_provider VARCHAR(50),
+        oauth_id VARCHAR(255),
+        is_email_verified BOOLEAN DEFAULT FALSE,
+        email_verification_token VARCHAR(255),
+        password_reset_token VARCHAR(255),
+        password_reset_expires TIMESTAMPTZ,
+        created_at TIMESTAMPTZ DEFAULT NOW(),
+        updated_at TIMESTAMPTZ DEFAULT NOW()
+      );
+
       CREATE TABLE IF NOT EXISTS solves (
         id UUID PRIMARY KEY,
         time INTEGER NOT NULL,
@@ -37,6 +52,9 @@ export async function initializeDatabase() {
       );
 
       CREATE INDEX IF NOT EXISTS idx_solves_timestamp ON solves(timestamp DESC);
+      CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+      CREATE INDEX IF NOT EXISTS idx_users_username ON users(username);
+      CREATE INDEX IF NOT EXISTS idx_users_oauth ON users(oauth_provider, oauth_id);
     `);
     console.log('Database schema initialized');
   } catch (error) {

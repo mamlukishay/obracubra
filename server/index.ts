@@ -1,7 +1,11 @@
 import express from 'express';
 import cors from 'cors';
+import passport from 'passport';
 import { initializeDatabase } from './db.js';
 import solvesRouter from './routes/solves.js';
+import authRouter from './routes/auth.js';
+import oauthRouter from './routes/oauth.js';
+import './config/passport.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -9,9 +13,12 @@ const PORT = process.env.PORT || 3001;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(passport.initialize());
 
 // Routes
-app.use('/api', solvesRouter);
+app.use('/api/solves', solvesRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/auth/oauth', oauthRouter);
 
 // Health check
 app.get('/health', (req, res) => {
