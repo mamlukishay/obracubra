@@ -20,7 +20,10 @@
       "Bash(docker --version:*)",
       "Bash(docker compose:*)",
       "Bash(node scripts/update-prd.js:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(curl:*)",
+      "Bash(docker exec:*)",
+      "Bash(node -e:*)"
     ]
   }
 }
