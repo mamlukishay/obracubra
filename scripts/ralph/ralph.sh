@@ -60,7 +60,7 @@ for i in $(seq 1 $MAX_ITERATIONS); do
   echo "═══════════════════════════════════════════════════════"
   
   # Run Claude Code with the ralph prompt
-  OUTPUT=$(cat "$SCRIPT_DIR/prompt.md" | npx @anthropic/claude-code --dangerously-skip-permissions 2>&1 | tee /dev/stderr) || true
+  OUTPUT=$(cat "$SCRIPT_DIR/prompt.md" | npx @anthropic-ai/claude-code --dangerously-skip-permissions 2>&1 | tee /dev/stderr) || true
   
   # Check for completion signal
   if echo "$OUTPUT" | grep -q "<promise>COMPLETE</promise>"; then

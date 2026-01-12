@@ -1,0 +1,57 @@
+# Ralph Progress Log
+Started: יום ב׳ ינו׳ 12 2026 09:05:22 IST
+---
+
+## Codebase Patterns
+- **Database Schema**: Use `CREATE TABLE IF NOT EXISTS` for idempotent migrations in `server/db.ts` > `initializeDatabase()`
+- **Password Security**: Always hash passwords with bcrypt (salt rounds: 10) before storing
+- **JWT Authentication**: Extract tokens from `Authorization: Bearer <token>` header format
+- **Database Queries**: Use parameterized queries ($1, $2, etc.) to prevent SQL injection
+- **API Route Structure**: Routes go in `server/routes/`, use Express Router pattern
+- **Middleware Pattern**: Auth middleware in `server/middleware/auth.ts` - use `authenticateToken` for protected routes
+- **OAuth Flow**: Passport.js strategies in `server/config/passport.ts`, redirect to frontend with JWT token after success
+- **Environment Variables**: All secrets must be in .env file, with examples in .env.example
+- **Error Handling**: Return appropriate HTTP status codes (400 for validation, 401 for auth, 500 for server errors)
+- **Type Safety**: Use TypeScript interfaces, avoid `any` types, extend Express types when needed (e.g., `AuthenticatedRequest`)
+
+---
+
+## 2026-01-12 - PF-001
+**Story**: User Registration & Authentication System
+
+**What was implemented**:
+- Complete JWT-based authentication system with email/password registration
+- User database table with fields for auth, OAuth, email verification, and password reset
+- Secure password hashing using bcrypt with salt rounds of 10
+- Authentication middleware for protecting routes (required and optional variants)
+- API endpoints for register, login, logout, verify email, request password reset, reset password, and get current user
+- OAuth integration with Google and GitHub using Passport.js
+- Email service for verification and password reset emails (nodemailer)
+- JWT utility functions for token generation, verification, and crypto token generation
+- Environment variables configuration for JWT, SMTP, OAuth, and app URLs
+
+**Files changed**:
+- `server/db.ts` - Added users table schema with indexes
+- `server/index.ts` - Integrated auth routes, OAuth routes, and passport initialization
+- `server/routes/auth.ts` - All authentication API endpoints (NEW)
+- `server/routes/oauth.ts` - OAuth callback routes for Google/GitHub (NEW)
+- `server/config/passport.ts` - Passport.js strategies configuration (NEW)
+- `server/middleware/auth.ts` - JWT authentication middleware (NEW)
+- `server/utils/jwt.ts` - JWT token utilities (NEW)
+- `server/utils/email.ts` - Email sending service (NEW)
+- `server/AGENTS.md` - Comprehensive authentication documentation (NEW)
+- `.env.example` - Added JWT, SMTP, OAuth, and URL configuration variables
+- `package.json` & `package-lock.json` - Added bcrypt, jsonwebtoken, nodemailer, passport dependencies
+
+**Learnings for future iterations**:
+- **Express Route Integration**: When adding new routes, remember to import and register them in `server/index.ts` with appropriate base paths
+- **Passport OAuth**: Strategies are only registered if client credentials are provided in environment variables (graceful degradation)
+- **TypeScript with Express**: Extend Request type when adding custom properties (e.g., `AuthenticatedRequest` for `req.user`)
+- **Database Initialization**: The `initializeDatabase()` function runs on server startup - perfect for migrations using IF NOT EXISTS
+- **ESLint Compliance**: Avoid `any` types, remove unused variables, use proper type annotations for Passport callbacks
+- **OAuth Redirect Flow**: After successful OAuth, redirect to frontend with token in query param: `${APP_URL}/oauth/callback?token=${token}`
+- **Security Best Practice**: Don't reveal whether emails exist in password reset flow (always return success message)
+- **SMTP Configuration**: Email service logs URLs to console when SMTP credentials aren't configured (helpful for local development)
+- **Build Process**: `npm run build` compiles TypeScript and Vite frontend - must pass before committing
+
+---

@@ -9,7 +9,14 @@
       "Bash(npx shadcn@latest init -d)",
       "Bash(npx shadcn@latest add:*)",
       "Bash(npx tsc:*)",
-      "Bash(timeout 5 npm run dev:*)"
+      "Bash(timeout 5 npm run dev:*)",
+      "Bash(npm run ralph-once:*)",
+      "Bash(npm run:*)",
+      "Bash(./scripts/ralph/ralph-once.sh:*)",
+      "Bash(git push:*)",
+      "Bash(gh pr create:*)",
+      "Bash(brew install:*)",
+      "Bash(gh auth login:*)"
     ]
   }
 }

@@ -19,14 +19,14 @@ scripts/ralph/
 ## Prerequisites
 
 ✅ **jq** - Already installed at `/usr/bin/jq`
-✅ **Claude Code CLI** - Available via `npx @anthropic/claude-code`
+✅ **Claude Code CLI** - Available via `npx @anthropic-ai/claude-code`
 ✅ **Node.js/npm** - Required for Claude Code CLI
 
 ### Claude Code CLI
 
 This implementation uses Claude Code CLI instead of Amp. The script runs:
 ```bash
-npx @anthropic/claude-code --dangerously-skip-permissions
+npx @anthropic-ai/claude-code --dangerously-skip-permissions
 ```
 
 No additional installation needed if you have Node.js!
