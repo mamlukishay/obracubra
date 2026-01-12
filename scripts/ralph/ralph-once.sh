@@ -48,7 +48,7 @@ if [ "$INCOMPLETE" -eq 0 ]; then
 fi
 
 # Run Claude Code with the ralph prompt
-OUTPUT=$(cat "$SCRIPT_DIR/prompt.md" | npx @anthropic/claude-code --dangerously-skip-permissions 2>&1 | tee /dev/stderr) || true
+OUTPUT=$(cat "$SCRIPT_DIR/prompt.md" | npx @anthropic-ai/claude-code --dangerously-skip-permissions 2>&1 | tee /dev/stderr) || true
 
 echo ""
 echo "═══════════════════════════════════════════════════════"

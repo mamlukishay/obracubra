@@ -12,7 +12,7 @@ Based on [Geoffrey Huntley's Ralph pattern](https://ghuntley.com/ralph/).
 
 ## Prerequisites
 
-- Claude Code CLI via `npx @anthropic/claude-code`
+- Claude Code CLI via `npx @anthropic-ai/claude-code`
 - `jq` installed (`brew install jq` on macOS or `apt install jq` on Linux)
 - A git repository for your project
 - Node.js and npm installed
