@@ -21,124 +21,6 @@
     },
     {
       "id": "PF-002",
-      "title": "Login Form UI",
-      "description": "As a speedcuber, I want a login form so that I can sign in to my account.",
-      "acceptanceCriteria": [
-        "Login form with email and password fields",
-        "Form validation (required fields, email format)",
-        "Show/hide password toggle",
-        "Submit button with loading state",
-        "Error messages for invalid credentials",
-        "Link to registration page",
-        "Link to password reset page",
-        "Redirect to home page on successful login"
-      ],
-      "priority": 1,
-      "passes": true
-    },
-    {
-      "id": "PF-003",
-      "title": "Registration Form UI",
-      "description": "As a new user, I want a registration form so that I can create an account.",
-      "acceptanceCriteria": [
-        "Registration form with email, username, and password fields",
-        "Password confirmation field",
-        "Form validation (email format, password strength, matching passwords)",
-        "Username availability check (real-time)",
-        "Show password requirements (8+ chars, numbers, etc.)",
-        "Submit button with loading state",
-        "Error handling and display",
-        "Redirect to email verification page on success"
-      ],
-      "priority": 1,
-      "passes": false
-    },
-    {
-      "id": "PF-004",
-      "title": "OAuth Login Buttons",
-      "description": "As a user, I want to sign in with Google or GitHub so that I don't need to create a new password.",
-      "acceptanceCriteria": [
-        "Google sign-in button with proper branding",
-        "GitHub sign-in button with proper branding",
-        "Buttons on both login and registration pages",
-        "Loading state during OAuth flow",
-        "Error handling for OAuth failures",
-        "Redirect to home page on successful OAuth login",
-        "Link existing account if email matches",
-        "Display OAuth provider in user profile"
-      ],
-      "priority": 1,
-      "passes": false
-    },
-    {
-      "id": "PF-005",
-      "title": "Password Reset Flow UI",
-      "description": "As a user who forgot their password, I want to reset it via email.",
-      "acceptanceCriteria": [
-        "Forgot password page with email input",
-        "Send reset email button with loading state",
-        "Success message after email sent",
-        "Reset password page (accessed via email link)",
-        "New password and confirm password fields",
-        "Password strength indicator",
-        "Submit button with loading state",
-        "Redirect to login page on successful reset"
-      ],
-      "priority": 1,
-      "passes": false
-    },
-    {
-      "id": "PF-006",
-      "title": "Email Verification Pages",
-      "description": "As a new user, I want to verify my email address to activate my account.",
-      "acceptanceCriteria": [
-        "Email verification pending page after registration",
-        "Email verification success page (accessed via email link)",
-        "Email verification failed page (expired/invalid token)",
-        "Resend verification email button",
-        "Loading state during verification",
-        "Redirect to login or home on success",
-        "Clear instructions and messaging"
-      ],
-      "priority": 1,
-      "passes": false
-    },
-    {
-      "id": "PF-007",
-      "title": "Auth State Management",
-      "description": "As a developer, I want global authentication state so that components can access user info.",
-      "acceptanceCriteria": [
-        "React Context for authentication state",
-        "Store current user, token, and isAuthenticated flag",
-        "Login, logout, and register actions",
-        "Persist auth token to localStorage",
-        "Auto-login on page load if token exists",
-        "Token expiration handling (auto-logout)",
-        "API client with automatic token injection",
-        "Loading state during auth checks"
-      ],
-      "priority": 1,
-      "passes": false
-    },
-    {
-      "id": "PF-008",
-      "title": "Protected Routes and Navigation",
-      "description": "As a developer, I want route protection so that authenticated pages require login.",
-      "acceptanceCriteria": [
-        "ProtectedRoute component that checks authentication",
-        "Redirect to login page if not authenticated",
-        "Preserve intended destination URL for redirect after login",
-        "Navigation bar shows login/register links when logged out",
-        "Navigation bar shows user info and logout when logged in",
-        "User dropdown menu with profile and settings links",
-        "Logout button with confirmation",
-        "Update navigation state on auth changes"
-      ],
-      "priority": 1,
-      "passes": false
-    },
-    {
-      "id": "PF-009",
       "title": "User Profile Page",
       "description": "As a speedcuber, I want a profile page where I can display my personal information and personal bests.",
       "acceptanceCriteria": [
@@ -153,7 +35,7 @@
       "passes": false
     },
     {
-      "id": "PF-010",
+      "id": "PF-003",
       "title": "Global Leaderboard - Backend API",
       "description": "As a developer, I want a backend API for leaderboards so that users can compare their times globally.",
       "acceptanceCriteria": [
@@ -169,7 +51,7 @@
       "passes": false
     },
     {
-      "id": "PF-011",
+      "id": "PF-004",
       "title": "Global Leaderboard - Frontend UI",
       "description": "As a speedcuber, I want to view leaderboards so that I can see how I rank against other cubers.",
       "acceptanceCriteria": [
@@ -185,7 +67,7 @@
       "passes": false
     },
     {
-      "id": "PF-012",
+      "id": "PF-005",
       "title": "Cloud Sync - Database Schema",
       "description": "As a developer, I want a database schema for cloud storage so that user data can be synced across devices.",
       "acceptanceCriteria": [
@@ -201,7 +83,7 @@
       "passes": false
     },
     {
-      "id": "PF-013",
+      "id": "PF-006",
       "title": "Cloud Sync - Upload Solves API",
       "description": "As a speedcuber, I want my solves to automatically sync to the cloud so that I can access them from any device.",
       "acceptanceCriteria": [
@@ -217,7 +99,7 @@
       "passes": false
     },
     {
-      "id": "PF-014",
+      "id": "PF-007",
       "title": "Cloud Sync - Download Solves API",
       "description": "As a speedcuber, I want to retrieve my solve history from the cloud when I log in on a new device.",
       "acceptanceCriteria": [
@@ -233,7 +115,7 @@
       "passes": false
     },
     {
-      "id": "PF-015",
+      "id": "PF-008",
       "title": "Cloud Sync - Frontend Integration",
       "description": "As a speedcuber, I want seamless sync between local and cloud storage so that my data is always up to date.",
       "acceptanceCriteria": [
@@ -249,7 +131,7 @@
       "passes": false
     },
     {
-      "id": "PF-016",
+      "id": "PF-009",
       "title": "Enhanced Statistics - Ao50 and Ao100",
       "description": "As a speedcuber, I want to see extended averages (Ao50, Ao100) so that I can track consistency over longer sessions.",
       "acceptanceCriteria": [
@@ -265,7 +147,7 @@
       "passes": false
     },
     {
-      "id": "PF-017",
+      "id": "PF-010",
       "title": "Enhanced Statistics - Standard Deviation",
       "description": "As a competitive speedcuber, I want to see standard deviation to understand my consistency.",
       "acceptanceCriteria": [
@@ -280,7 +162,7 @@
       "passes": false
     },
     {
-      "id": "PF-018",
+      "id": "PF-011",
       "title": "Performance Graphs - Time Chart",
       "description": "As a speedcuber, I want to see a line graph of my solve times over sessions so that I can visualize my improvement.",
       "acceptanceCriteria": [
@@ -296,7 +178,7 @@
       "passes": false
     },
     {
-      "id": "PF-019",
+      "id": "PF-012",
       "title": "Performance Graphs - Average Trend Lines",
       "description": "As a speedcuber, I want to see trend lines for my rolling averages so that I can see improvement patterns.",
       "acceptanceCriteria": [
@@ -311,7 +193,7 @@
       "passes": false
     },
     {
-      "id": "PF-020",
+      "id": "PF-013",
       "title": "Session Management - Create and Switch Sessions",
       "description": "As a speedcuber practicing different techniques, I want to organize solves into separate sessions.",
       "acceptanceCriteria": [
@@ -327,7 +209,7 @@
       "passes": false
     },
     {
-      "id": "PF-021",
+      "id": "PF-014",
       "title": "Session Management - Session Statistics",
       "description": "As a speedcuber, I want to see statistics specific to each session so that I can compare different practice approaches.",
       "acceptanceCriteria": [
@@ -342,7 +224,7 @@
       "passes": false
     },
     {
-      "id": "PF-022",
+      "id": "PF-015",
       "title": "Session Management - Archive and Delete",
       "description": "As a speedcuber, I want to archive or delete old sessions to keep my workspace organized.",
       "acceptanceCriteria": [
@@ -358,7 +240,7 @@
       "passes": false
     },
     {
-      "id": "PF-023",
+      "id": "PF-016",
       "title": "3D Scramble Preview - Basic Cube Rendering",
       "description": "As a beginner speedcuber, I want to see a 3D visualization of the scramble so that I can verify I scrambled correctly.",
       "acceptanceCriteria": [
@@ -374,7 +256,7 @@
       "passes": false
     },
     {
-      "id": "PF-024",
+      "id": "PF-017",
       "title": "3D Scramble Preview - Rotation and Interaction",
       "description": "As a user, I want to rotate the 3D scramble preview to view all sides.",
       "acceptanceCriteria": [
@@ -390,7 +272,7 @@
       "passes": false
     },
     {
-      "id": "PF-025",
+      "id": "PF-018",
       "title": "Competition Mode - Inspection Timer",
       "description": "As a competitive speedcuber, I want a 15-second inspection timer with warnings to practice for competitions.",
       "acceptanceCriteria": [
@@ -407,7 +289,7 @@
       "passes": false
     },
     {
-      "id": "PF-026",
+      "id": "PF-019",
       "title": "Competition Mode - Penalty Management",
       "description": "As a competitive speedcuber, I want to apply +2 and DNF penalties to solves following WCA rules.",
       "acceptanceCriteria": [
@@ -423,7 +305,7 @@
       "passes": false
     },
     {
-      "id": "PF-027",
+      "id": "PF-020",
       "title": "Competition Mode - Ao5 Format",
       "description": "As a competitive speedcuber, I want an official WCA Ao5 format for competition simulation.",
       "acceptanceCriteria": [
@@ -439,7 +321,7 @@
       "passes": false
     },
     {
-      "id": "PF-028",
+      "id": "PF-021",
       "title": "Multi-Puzzle Support - 2x2 Scrambles",
       "description": "As a speedcuber, I want to practice 2x2 solves with proper scrambles.",
       "acceptanceCriteria": [
@@ -455,7 +337,7 @@
       "passes": false
     },
     {
-      "id": "PF-029",
+      "id": "PF-022",
       "title": "Multi-Puzzle Support - 4x4 and 5x5 Scrambles",
       "description": "As a speedcuber, I want to practice 4x4 and 5x5 cubes with WCA-compliant scrambles.",
       "acceptanceCriteria": [
@@ -471,7 +353,7 @@
       "passes": false
     },
     {
-      "id": "PF-030",
+      "id": "PF-023",
       "title": "Multi-Puzzle Support - Pyraminx and Megaminx",
       "description": "As a multi-event speedcuber, I want support for Pyraminx and Megaminx puzzles.",
       "acceptanceCriteria": [
@@ -487,7 +369,7 @@
       "passes": false
     },
     {
-      "id": "PF-031",
+      "id": "PF-024",
       "title": "Data Export - CSV Export",
       "description": "As a data-conscious cuber, I want to export my solves to CSV so that I can analyze them in Excel or other tools.",
       "acceptanceCriteria": [
@@ -503,7 +385,7 @@
       "passes": false
     },
     {
-      "id": "PF-032",
+      "id": "PF-025",
       "title": "Data Export - csTimer Format Compatibility",
       "description": "As a user switching from csTimer, I want to export in csTimer format so that I can migrate my data.",
       "acceptanceCriteria": [
@@ -519,7 +401,7 @@
       "passes": false
     },
     {
-      "id": "PF-033",
+      "id": "PF-026",
       "title": "Data Import - CSV Import",
       "description": "As a user migrating from another app, I want to import solves from CSV files.",
       "acceptanceCriteria": [
@@ -536,7 +418,7 @@
       "passes": false
     },
     {
-      "id": "PF-034",
+      "id": "PF-027",
       "title": "Data Import - csTimer Import",
       "description": "As a csTimer user, I want to import my existing data so that I don't lose my solve history.",
       "acceptanceCriteria": [
@@ -552,7 +434,7 @@
       "passes": false
     },
     {
-      "id": "PF-035",
+      "id": "PF-028",
       "title": "PWA - Service Worker and Offline Support",
       "description": "As a mobile user, I want the timer to work offline so that I can practice anywhere without internet.",
       "acceptanceCriteria": [
@@ -568,7 +450,7 @@
       "passes": false
     },
     {
-      "id": "PF-036",
+      "id": "PF-029",
       "title": "PWA - Install Prompt and App Manifest",
       "description": "As a mobile user, I want to install the timer as an app on my home screen.",
       "acceptanceCriteria": [
@@ -584,7 +466,7 @@
       "passes": false
     },
     {
-      "id": "PF-037",
+      "id": "PF-030",
       "title": "Custom Themes - Theme Selector",
       "description": "As a user, I want to choose from multiple themes to customize the appearance.",
       "acceptanceCriteria": [
@@ -600,7 +482,7 @@
       "passes": false
     },
     {
-      "id": "PF-038",
+      "id": "PF-031",
       "title": "Custom Themes - Custom Color Picker",
       "description": "As a user, I want to create my own custom color scheme.",
       "acceptanceCriteria": [
@@ -616,7 +498,7 @@
       "passes": false
     },
     {
-      "id": "PF-039",
+      "id": "PF-032",
       "title": "Social Features - Share Solve to Social Media",
       "description": "As a speedcuber, I want to share my personal bests on social media to celebrate achievements.",
       "acceptanceCriteria": [
@@ -632,7 +514,7 @@
       "passes": false
     },
     {
-      "id": "PF-040",
+      "id": "PF-033",
       "title": "1v1 Battle Mode - Real-time Backend Setup",
       "description": "As a developer, I want a WebSocket backend for real-time 1v1 battles.",
       "acceptanceCriteria": [
@@ -648,7 +530,7 @@
       "passes": false
     },
     {
-      "id": "PF-041",
+      "id": "PF-034",
       "title": "1v1 Battle Mode - Frontend Battle UI",
       "description": "As a speedcuber, I want to race against a friend in real-time.",
       "acceptanceCriteria": [
@@ -665,7 +547,7 @@
       "passes": false
     },
     {
-      "id": "PF-042",
+      "id": "PF-035",
       "title": "Bluetooth Smart Cube - Connection Interface",
       "description": "As a smart cube owner, I want to connect my Bluetooth cube to automatically track solves.",
       "acceptanceCriteria": [
@@ -682,7 +564,7 @@
       "passes": false
     },
     {
-      "id": "PF-043",
+      "id": "PF-036",
       "title": "Bluetooth Smart Cube - Move Tracking and TPS",
       "description": "As a smart cube user, I want to see real-time moves and TPS during solves.",
       "acceptanceCriteria": [
@@ -698,7 +580,7 @@
       "passes": false
     },
     {
-      "id": "PF-044",
+      "id": "PF-037",
       "title": "Algorithm Trainer - OLL Cases",
       "description": "As a speedcuber learning OLL, I want a trainer that helps me practice all 57 OLL cases.",
       "acceptanceCriteria": [
@@ -715,7 +597,7 @@
       "passes": false
     },
     {
-      "id": "PF-045",
+      "id": "PF-038",
       "title": "Algorithm Trainer - PLL Cases",
       "description": "As a speedcuber learning PLL, I want to practice all 21 PLL cases.",
       "acceptanceCriteria": [
@@ -732,7 +614,7 @@
       "passes": false
     },
     {
-      "id": "PF-046",
+      "id": "PF-039",
       "title": "Performance Optimization - Virtual Scrolling for History",
       "description": "As a cuber with 10,000+ solves, I want the history list to remain fast and responsive.",
       "acceptanceCriteria": [
@@ -748,7 +630,7 @@
       "passes": false
     },
     {
-      "id": "PF-047",
+      "id": "PF-040",
       "title": "Performance Optimization - Database Indexing",
       "description": "As a developer, I want optimized database queries so that statistics calculate quickly even with large datasets.",
       "acceptanceCriteria": [

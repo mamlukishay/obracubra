@@ -55,3 +55,43 @@ Started: יום ב׳ ינו׳ 12 2026 09:05:22 IST
 - **Build Process**: `npm run build` compiles TypeScript and Vite frontend - must pass before committing
 
 ---
+## 2026-01-12 - PF-002
+**Story**: Login Form UI
+
+**What was implemented**:
+- Complete login form component with email and password fields
+- Real-time email validation with regex pattern matching
+- Password visibility toggle using Eye/EyeOff icons from lucide-react
+- Loading state with Loader2 spinner during authentication
+- Comprehensive error handling for invalid credentials, unverified email, and server errors
+- Links to registration page (/register) and password reset page (/forgot-password)
+- Automatic redirect to home page (/) on successful login
+- React Router integration for client-side routing
+- API client with JWT token management in localStorage
+- Created reusable Input and Label UI components following shadcn patterns
+
+**Files changed**:
+- `src/components/auth/LoginForm.tsx` - Complete login form component (NEW)
+- `src/components/ui/input.tsx` - Reusable Input component with validation styling (NEW)
+- `src/components/ui/label.tsx` - Reusable Label component (NEW)
+- `src/lib/api.ts` - API client with authentication endpoints and error handling (NEW)
+- `src/pages/TimerPage.tsx` - Moved original App.tsx content here (NEW)
+- `src/pages/RegisterPage.tsx` - Placeholder registration page (NEW)
+- `src/pages/ForgotPasswordPage.tsx` - Placeholder password reset page (NEW)
+- `src/App.tsx` - Converted to routing component with Routes
+- `src/main.tsx` - Added BrowserRouter wrapper
+- `package.json` & `package-lock.json` - Added react-router-dom dependency
+
+**Learnings for future iterations**:
+- **Routing Setup**: React Router requires BrowserRouter in main.tsx and Routes/Route in App.tsx
+- **API Client Pattern**: Use Record<string, string> for headers to avoid TypeScript HeadersInit indexing errors
+- **Validation UX**: Validate email on blur and onChange (when error exists) for better user experience
+- **Error Handling**: Different status codes need different error messages (401 for auth, 403 for unverified email)
+- **Component Organization**: Auth components go in `components/auth/`, pages go in `pages/`, UI primitives in `components/ui/`
+- **Token Storage**: Store JWT token in localStorage with key 'authToken' for consistency across the app
+- **Placeholder Pages**: Create placeholder pages for linked routes to avoid 404s during incremental development
+- **API Base URL**: Use import.meta.env.VITE_API_URL with fallback to localhost:3000 for environment flexibility
+- **Build Verification**: Always run `npm run build` before committing to catch TypeScript and bundling errors
+- **Accessibility**: Use aria-invalid and aria-label attributes for better form accessibility
+
+---
