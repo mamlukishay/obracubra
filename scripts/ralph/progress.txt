@@ -1,0 +1,97 @@
+# Ralph Progress Log
+Started: יום ב׳ ינו׳ 12 2026 09:05:22 IST
+---
+
+## Codebase Patterns
+- **Database Schema**: Use `CREATE TABLE IF NOT EXISTS` for idempotent migrations in `server/db.ts` > `initializeDatabase()`
+- **Password Security**: Always hash passwords with bcrypt (salt rounds: 10) before storing
+- **JWT Authentication**: Extract tokens from `Authorization: Bearer <token>` header format
+- **Database Queries**: Use parameterized queries ($1, $2, etc.) to prevent SQL injection
+- **API Route Structure**: Routes go in `server/routes/`, use Express Router pattern
+- **Middleware Pattern**: Auth middleware in `server/middleware/auth.ts` - use `authenticateToken` for protected routes
+- **OAuth Flow**: Passport.js strategies in `server/config/passport.ts`, redirect to frontend with JWT token after success
+- **Environment Variables**: All secrets must be in .env file, with examples in .env.example
+- **Error Handling**: Return appropriate HTTP status codes (400 for validation, 401 for auth, 500 for server errors)
+- **Type Safety**: Use TypeScript interfaces, avoid `any` types, extend Express types when needed (e.g., `AuthenticatedRequest`)
+
+---
+
+## 2026-01-12 - PF-001
+**Story**: User Registration & Authentication System
+
+**What was implemented**:
+- Complete JWT-based authentication system with email/password registration
+- User database table with fields for auth, OAuth, email verification, and password reset
+- Secure password hashing using bcrypt with salt rounds of 10
+- Authentication middleware for protecting routes (required and optional variants)
+- API endpoints for register, login, logout, verify email, request password reset, reset password, and get current user
+- OAuth integration with Google and GitHub using Passport.js
+- Email service for verification and password reset emails (nodemailer)
+- JWT utility functions for token generation, verification, and crypto token generation
+- Environment variables configuration for JWT, SMTP, OAuth, and app URLs
+
+**Files changed**:
+- `server/db.ts` - Added users table schema with indexes
+- `server/index.ts` - Integrated auth routes, OAuth routes, and passport initialization
+- `server/routes/auth.ts` - All authentication API endpoints (NEW)
+- `server/routes/oauth.ts` - OAuth callback routes for Google/GitHub (NEW)
+- `server/config/passport.ts` - Passport.js strategies configuration (NEW)
+- `server/middleware/auth.ts` - JWT authentication middleware (NEW)
+- `server/utils/jwt.ts` - JWT token utilities (NEW)
+- `server/utils/email.ts` - Email sending service (NEW)
+- `server/AGENTS.md` - Comprehensive authentication documentation (NEW)
+- `.env.example` - Added JWT, SMTP, OAuth, and URL configuration variables
+- `package.json` & `package-lock.json` - Added bcrypt, jsonwebtoken, nodemailer, passport dependencies
+
+**Learnings for future iterations**:
+- **Express Route Integration**: When adding new routes, remember to import and register them in `server/index.ts` with appropriate base paths
+- **Passport OAuth**: Strategies are only registered if client credentials are provided in environment variables (graceful degradation)
+- **TypeScript with Express**: Extend Request type when adding custom properties (e.g., `AuthenticatedRequest` for `req.user`)
+- **Database Initialization**: The `initializeDatabase()` function runs on server startup - perfect for migrations using IF NOT EXISTS
+- **ESLint Compliance**: Avoid `any` types, remove unused variables, use proper type annotations for Passport callbacks
+- **OAuth Redirect Flow**: After successful OAuth, redirect to frontend with token in query param: `${APP_URL}/oauth/callback?token=${token}`
+- **Security Best Practice**: Don't reveal whether emails exist in password reset flow (always return success message)
+- **SMTP Configuration**: Email service logs URLs to console when SMTP credentials aren't configured (helpful for local development)
+- **Build Process**: `npm run build` compiles TypeScript and Vite frontend - must pass before committing
+
+---
+## 2026-01-12 - PF-002
+**Story**: Login Form UI
+
+**What was implemented**:
+- Complete login form component with email and password fields
+- Real-time email validation with regex pattern matching
+- Password visibility toggle using Eye/EyeOff icons from lucide-react
+- Loading state with Loader2 spinner during authentication
+- Comprehensive error handling for invalid credentials, unverified email, and server errors
+- Links to registration page (/register) and password reset page (/forgot-password)
+- Automatic redirect to home page (/) on successful login
+- React Router integration for client-side routing
+- API client with JWT token management in localStorage
+- Created reusable Input and Label UI components following shadcn patterns
+
+**Files changed**:
+- `src/components/auth/LoginForm.tsx` - Complete login form component (NEW)
+- `src/components/ui/input.tsx` - Reusable Input component with validation styling (NEW)
+- `src/components/ui/label.tsx` - Reusable Label component (NEW)
+- `src/lib/api.ts` - API client with authentication endpoints and error handling (NEW)
+- `src/pages/TimerPage.tsx` - Moved original App.tsx content here (NEW)
+- `src/pages/RegisterPage.tsx` - Placeholder registration page (NEW)
+- `src/pages/ForgotPasswordPage.tsx` - Placeholder password reset page (NEW)
+- `src/App.tsx` - Converted to routing component with Routes
+- `src/main.tsx` - Added BrowserRouter wrapper
+- `package.json` & `package-lock.json` - Added react-router-dom dependency
+
+**Learnings for future iterations**:
+- **Routing Setup**: React Router requires BrowserRouter in main.tsx and Routes/Route in App.tsx
+- **API Client Pattern**: Use Record<string, string> for headers to avoid TypeScript HeadersInit indexing errors
+- **Validation UX**: Validate email on blur and onChange (when error exists) for better user experience
+- **Error Handling**: Different status codes need different error messages (401 for auth, 403 for unverified email)
+- **Component Organization**: Auth components go in `components/auth/`, pages go in `pages/`, UI primitives in `components/ui/`
+- **Token Storage**: Store JWT token in localStorage with key 'authToken' for consistency across the app
+- **Placeholder Pages**: Create placeholder pages for linked routes to avoid 404s during incremental development
+- **API Base URL**: Use import.meta.env.VITE_API_URL with fallback to localhost:3000 for environment flexibility
+- **Build Verification**: Always run `npm run build` before committing to catch TypeScript and bundling errors
+- **Accessibility**: Use aria-invalid and aria-label attributes for better form accessibility
+
+---
