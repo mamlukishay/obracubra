@@ -16,7 +16,11 @@
       "Bash(git push:*)",
       "Bash(gh pr create:*)",
       "Bash(brew install:*)",
-      "Bash(gh auth login:*)"
+      "Bash(gh auth login:*)",
+      "Bash(docker --version:*)",
+      "Bash(docker compose:*)",
+      "Bash(node scripts/update-prd.js:*)",
+      "Bash(git add:*)"
     ]
   }
 }
